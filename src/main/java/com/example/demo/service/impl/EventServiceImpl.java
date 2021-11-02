@@ -7,9 +7,6 @@ import com.example.demo.pojo.Event;
 import com.example.demo.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
