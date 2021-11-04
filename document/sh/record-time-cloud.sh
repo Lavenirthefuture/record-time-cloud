@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
-app_name='record-time-cloud'
-docker stop ${app_name}
+mvn clean
+mvn package -DskipTests
+echo'----remove image----'
+docker rmi -f record/record-time-cloud:1.0
+echo'----build image----'
+mvn dockerfile:build
+docker images
+docker ps -a
 echo'----stop container----'
-docker rm ${app_name}
+docker stop record-time-cloud
 echo'----rm container----'
-docker run -p 8081:8081 --name ${app_name} \
--d record/${app_name}:1.0-SNAPSHOT
+docker rm -f record-time-cloud
 echo'----start container----'
+docker run -d --name record-time-cloud  -p 8081:8081 record/record-time-cloud:1.0
+docker ps -a
