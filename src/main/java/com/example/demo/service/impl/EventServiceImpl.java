@@ -19,7 +19,7 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
 
     @Override
     public List<Event> getEventsByDate(java.sql.Date date) {
-        QueryWrapper<Event> wrapper=new QueryWrapper<>();
+        QueryWrapper<Event> wrapper=new QueryWrapper<Event>();
         wrapper.eq("date",date);
         return eventMapper.selectList(wrapper);
     }
