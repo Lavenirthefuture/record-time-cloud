@@ -1,16 +1,25 @@
 #!/usr/bin/env bash
-mvn clean
-mvn package -DskipTests
-echo'----remove image----'
-docker rmi -f record/record-time-cloud:1.0
-echo'----build image----'
-mvn dockerfile:build
-docker images
-docker ps -a
-echo'----stop container----'
-docker stop record-time-cloud
-echo'----rm container----'
-docker rm -f record-time-cloud
-echo'----start container----'
-docker run -d --name record-time-cloud  -p 8081:8081 record/record-time-cloud:1.0
-docker ps -a
+echo '----delete old jar----'
+# 强制覆盖老的 jar 包
+#cp -f /mydata/jenkins_home/workspace/zk-monitor/target/zk_monitor.jar /mydata/jenkins_home/workspace/zk-monitor-run/zk_monitor.jar
+# 定义应用组名
+group_name='record'
+# 定义应用名称
+app_name='record-time-cloud'
+# 定义应用版本
+app_version='1.0'
+# 定义应用环境
+profile_active='prod'
+echo '----copy jar----'
+docker stop ${app_name}
+echo '----stop container----'
+docker rm ${app_name}
+echo '----rm container----'
+docker rmi ${group_name}/${app_name}:${app_version}
+echo '----rm image----'
+# 打包编译docker镜像
+docker build -t ${group_name}/${app_name}:${app_version} .
+echo '----build image----'
+docker run -p 8081:8081 --name ${app_name} \
+-d ${group_name}/${app_name}:${app_version}
+echo '----start container----'
