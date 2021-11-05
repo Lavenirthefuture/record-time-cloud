@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo '----delete old jar----'
 # 强制覆盖老的 jar 包
-#cp -f /mydata/jenkins_home/workspace/zk-monitor/target/zk_monitor.jar /mydata/jenkins_home/workspace/zk-monitor-run/zk_monitor.jar
+cp -f /mydata/jenkins_home/workspace/record-time-cloud/target/record-time-cloud-0.0.1-SNAPSHOT.jar /mydata/jenkins_home/workspace/record-time-cloud-run/record-time-cloud-0.0.1-SNAPSHOT.jar
 # 定义应用组名
 group_name='record'
 # 定义应用名称
